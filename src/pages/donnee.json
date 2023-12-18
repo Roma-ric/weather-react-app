@@ -1,0 +1,44 @@
+[   
+    
+    {
+        "location": {
+            "name": "Parakou",
+            "region": "Borgou",
+            "country": "Benin",
+            "lat": 9.35,
+            "lon": 2.62,
+            "tz_id": "Africa/Porto-Novo",
+            "localtime_epoch": 1702929800,
+            "localtime": "2023-12-18 21:03"
+        },
+        "current": {
+            "last_updated_epoch": 1702929600,
+            "last_updated": "2023-12-18 21:00",
+            "temp_c": 27.6,
+            "temp_f": 81.7,
+            "is_day": 0,
+            "condition": {
+                "text": "Clear",
+                "icon": "//cdn.weatherapi.com/weather/64x64/night/113.png",
+                "code": 1000
+            },
+            "wind_mph": 5.8,
+            "wind_kph": 9.4,
+            "wind_degree": 9,
+            "wind_dir": "N",
+            "pressure_mb": 1010.0,
+            "pressure_in": 29.83,
+            "precip_mm": 0.0,
+            "precip_in": 0.0,
+            "humidity": 18,
+            "cloud": 2,
+            "feelslike_c": 25.7,
+            "feelslike_f": 78.2,
+            "vis_km": 10.0,
+            "vis_miles": 6.0,
+            "uv": 1.0,
+            "gust_mph": 12.2,
+            "gust_kph": 19.7
+        }
+    }
+]
