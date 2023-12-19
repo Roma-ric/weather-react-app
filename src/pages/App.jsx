@@ -49,53 +49,45 @@ function App() {
 
       </div>
       <div className='d-flex flex-column justify-content-center align-items-center'>
-        {
-          isDataLoading ?
-            <div class="spinner-border text-light " role="status">
-              <span class="visually-hidden">Loading...</span>
+        <div className='card bg-transparent mt-4 col-lg-10 col-11 shadow-lg' style={{ height: "auto" }}>
+          <div className='d-flex flex-lg-row flex-column justify-content-between p-lg-3 p-1'>
+            <div className='d-flex flex-column col-lg-5 col-11'>
+              <h2 className='text-light'> {
+                data.location ?
+                  data.location.name + "," + data.location.country
+                  :
+                  <div class="spinner-border text-light " role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+              } </h2>
+              <h4 className='text-light'>   {
+                data.location ?
+                  new Date(data.location.localtime).toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' })
+                  :
+                  <div class="spinner-border text-light " role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+              } </h4>
+              <p className="text-light m-1"> </p>
             </div>
-            :
-            <div className='card bg-transparent mt-4 col-lg-10 col-11 shadow-lg' style={{ height: "auto" }}>
-              <div className='d-flex flex-lg-row flex-column justify-content-between p-lg-3 p-1'>
-                <div className='d-flex flex-column col-lg-5 col-11'>
-                  <h2 className='text-light'> {
-                    data.location ?
-                      data.location.name + "," + data.location.country
-                      :
-                      <div class="spinner-border text-light " role="status">
-                        <span class="visually-hidden">Loading...</span>
-                      </div>
-                  } </h2>
-                  <h4 className='text-light'>   {
-                    data.location ?
-                      new Date(data.location.localtime).toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' })
-                      :
-                      <div class="spinner-border text-light " role="status">
-                        <span class="visually-hidden">Loading...</span>
-                      </div>
-                  } </h4>
-                  <p className="text-light m-1"> </p>
+            {
+              data.current ?
+                <img src={'https:' + data.current.condition.icon} alt="" className='col-3' />
+                :
+                <div class="spinner-border text-light " role="status">
+                  <span class="visually-hidden">Loading...</span>
                 </div>
-                {
-                  data.current ?
-                    <img src={'https:' + data.current.condition.icon} alt="" className='col-3' />
-                    :
-                    <div class="spinner-border text-light " role="status">
-                      <span class="visually-hidden">Loading...</span>
-                    </div>
-                }
-                <p className='text-light fs-1'> <span class="material-symbols-outlined"> device_thermostat </span> {
-                  data.current ?
-                    data.current.temp_c
-                    :
-                    <div class="spinner-border text-light " role="status">
-                      <span class="visually-hidden">Loading...</span>
-                    </div>
-                }<sup>o</sup>C  </p>
-              </div>
-            </div>
-        }
-
+            }
+            <p className='text-light fs-1'> <span class="material-symbols-outlined"> device_thermostat </span> {
+              data.current ?
+                data.current.temp_c
+                :
+                <div class="spinner-border text-light " role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+            }<sup>o</sup>C  </p>
+          </div>
+        </div>
       </div>
     </div>
   );
