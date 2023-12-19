@@ -10,28 +10,23 @@ import { useState, useEffect } from 'react';
 function App() {
 
   const [inputOpen, setInputOpen] = useState(false);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({});
   const [isDataLoading, setDataLoading] = useState(false);
 
-  /*
-  useEffect(() => {
-    setDataLoading(true)
-    fetch(``)
+  const recherche = () => {
+    const location = document.getElementById("location").value;
+    fetch(`http://api.weatherapi.com/v1/forecast.json?key=7ff595a5c038495797982215231212&q=${location}&days=7&aqi=no&alerts=no`)
       .then((response) => response.json())
       .then((surveyData) => {
         setData(surveyData)
         setDataLoading(false)
       })
-      .catch((error) => console.log(error))
-  }, [])
-  */
-  const recherche = () => {
-    alert("Recherche en cours...");
-    fetch("http://api.weatherapi.com/v1/current.json?key=7ff595a5c038495797982215231212&q=Parakou", () => {
-
-    })
+      .catch((error) => {
+        console.log(error);
+        alert("Nom de ville incorrecte ou ville non retrouvée.")
+      })
   }
-  
+
   return (
     <div style={{ background: `url(${background})`, backgroundSize: "cover", height: "1000px" }}>
       <div className='d-flex justify-content-center'>
@@ -39,7 +34,7 @@ function App() {
           inputOpen ?
             <div className='d-flex flex-lg-row flex-column justify-content-around'>
               <div className='bg-light d-flex mt-5' style={{ borderRadius: "25px" }}>
-                <input type="search" name="searchWeather" id="searchWeather" placeholder='Rechercher une ville...' className='form-control border-0' style={{ borderRadius: "30px" }} />
+                <input type="search" name="location" id="location" placeholder='Rechercher une ville...' className='form-control border-0' style={{ borderRadius: "30px" }} />
                 <div className='card btn btn-outline-primary p-2 rounded-circle d-flex justify-content-center align-items-center' style={{ width: "50px", height: "50px" }} onClick={() => setInputOpen(!inputOpen)}>
                   <span class="material-symbols-outlined"> search </span>
                 </div>
@@ -55,21 +50,24 @@ function App() {
       </div>
       <div className='d-flex flex-column justify-content-center align-items-center'>
         {
-          // isDataLoading ?
-          //   <div class="spinner-border w-25 text-light " role="status">
-          //     <span class="visually-hidden">Loading...</span>
-          //   </div>
-          //   :
+          isDataLoading ?
+            <div class="spinner-border w-25 text-light " role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            :
             <div className='card bg-transparent mt-4 col-lg-10 col-11 shadow-lg' style={{ height: "500px" }}>
               <div className='d-flex justify-content-between p-lg-3 p-1'>
-                <div className='d-flex flex-column'>
-                  <h2 className='text-light'> {"Parakou"} </h2>
-                  <h4 className='text-light'> {"Lundi"} </h4>
-                  <p className="text-light m-1 d-flex"><span class="material-symbols-outlined"> humidity_low </span> Humidité: {""} </p>
+                <div className='d-flex flex-column col-5'>
+                  <h2 className='text-light'> {data.location ? data.location.name + "," + data.location.country : "----------"} </h2>
+                  <h4 className='text-light'>   {data.location ? new Date(data.location.localtime).toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' }) : "---------------"} </h4>
+                  <p className="text-light m-1 d-flex"><span class="material-symbols-outlined"> humidity_low </span> Humidité: {data.current ? data.current.humidity : "------"} </p>
                   <p className="text-light m-1"> </p>
                 </div>
-                <img src={oxygen} alt="" className='col-3' />
-                <p className='text-light fs-1'> <span class="material-symbols-outlined"> device_thermostat </span> {22}<sup>o</sup>C  </p>
+                {
+                  data.current ? <img src={'https:' + data.current.condition.icon} alt="" className='col-3' /> : <h1 className='text-light'> -------------------------- </h1>
+                }
+
+                <p className='text-light fs-1'> <span class="material-symbols-outlined"> device_thermostat </span> {data.current ? data.current.temp_c : "-------"}<sup>o</sup>C  </p>
               </div>
               <div className='mt-2 d-flex flex-wrap justify-content-around p-lg-3 p-1'>
                 <div className="card bg-transparent border-secondary shadow-lg p-2 d-flex flex-column align-items-center">
