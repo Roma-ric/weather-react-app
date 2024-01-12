@@ -1,12 +1,15 @@
 import background from '../images/pexels-pixabay-531756.jpg'
-
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function App() {
 
   const [inputOpen, setInputOpen] = useState(false);
   const [data, setData] = useState({});
   const [isDataLoading, setDataLoading] = useState(false);
+
+  useEffect(() => {
+    alert("Cliqué sur l'icône 🔍 pour rechercher la météo d'une ville");
+  }, []);
 
   const recherche = () => {
     const location = (document.getElementById("location").value).trim();
@@ -34,7 +37,7 @@ function App() {
           inputOpen ?
             <div className='d-flex flex-lg-row flex-column justify-content-around'>
               <div className='bg-light d-flex mt-2' style={{ borderRadius: "25px" }}>
-                <input type="search" name="location" id="location" placeholder='Rechercher une ville...' className='form-control border-0' style={{ borderRadius: "30px" }} />
+                <input type="search" name="location" id="location" placeholder="Rechercher la météo d'une ville..." className='form-control border-0' style={{ borderRadius: "30px" }} />
                 <div className='card btn btn-outline-primary p-2 rounded-circle d-flex justify-content-center align-items-center' style={{ width: "50px", height: "50px" }} onClick={() => setInputOpen(!inputOpen)}>
                   <span class="material-symbols-outlined"> search </span>
                 </div>
